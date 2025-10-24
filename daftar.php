@@ -79,15 +79,47 @@
         <div class="container">
             <h1>Data Registrasi User</h1>
             
-            <?php if (isset($_POST['submit'])): ?>
-                <div class="success-message">
-                    Registrasi Berhasil!
-                </div>
+            <?php 
+            if (isset($_POST['submit'])) {
+                $nama_depan    = $_POST['nama_depan'];
+                $nama_belakang = $_POST['nama_belakang'];
+                $asal_kota     = $_POST['asal_kota'];
+                $umur          = $_POST['umur'];
+
+                if ($umur < 10) {
+                    echo "<div style='color:red; text-align:center; margin-bottom:20px;'>Error: Umur minimal adalah 10 tahun!</div>";
+                } else {
+                    echo "<div class='success-message'>Registrasi Berhasil!</div>";
+
+                    echo "<table>";
+                    echo "<tr>
+                            <th>No</th>
+                            <th>Nama Lengkap</th>
+                            <th>Umur</th>
+                            <th>Asal Kota</th>
+                          </tr>";
+                
+                for ($i = 1; $i <= $umur; $i++) {
+                    if ($i % 2 == 0 && $i != 4 && $i != 8) {
+                        echo "<tr>";
+                            echo "<td>$i</td>";
+                            echo "<td>".strtoupper($nama_depan." ".$nama_belakang)."</td>";
+                            echo "<td>".$umur." tahun</td>";
+                            echo "<td>".strtoupper($asal_kota)."</td>";
+                            echo "</tr>";
+                    }
+                }
+
+                echo "</table>";
+                }
+                ?>
                 
                 <div class="back-button">
                     <a href="index.html">Kembali ke Form Registrasi</a>
                 </div>
-            <?php else: ?>
+            <?php 
+            } else { 
+            ?>
                 <div style="text-align: center; color: #dc3545; padding: 20px;">
                     <h3>Error: Data tidak ditemukan</h3>
                     <p>Silakan isi form registrasi terlebih dahulu.</p>
@@ -95,7 +127,7 @@
                         <a href="index.html">Kembali ke Form Registrasi</a>
                     </div>
                 </div>
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </body>
 </html>
